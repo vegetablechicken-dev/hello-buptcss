@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script>
+        function checkform()
+        {
+            var name=document.forms["myform"]["username"].value;
+            var pass=document.forms["myform"]["password"].value;
+            if(Number(name)==2020211866&&Number(pass)==2020211866)
+            window.location.href="https://acm.hdu.edu.cn/";
+            alert("账号或者密码错误")
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="样式css/css.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+
+<body  style="height:1500px">
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#HOME">分享</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">题库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#course">课程</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#class">班级</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu2">登录</a>
+        </li>
+    </ul>
+
+<h1 style="text-align: center">welcome to lwq OJ</h1>
+
+<div class="tab-content">
+    <div id="HOME" class="container tab-pane active"><br>
+        <h3>HOME-一些分享</h3>
+    </div>
+    <div id="course" class="container tab-pane fade"><br>
+        <h3>课程</h3>
+    </div>
+    <div id="class" class="container tab-pane fade"><br>
+        <h3>班级</h3>
+    </div>
+
+    <div id="menu1" class="container tab-pane fade"><br>
+        <h3>题库</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="container tab-pane fade"><br>
+        <h3>登陆</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        <div class="div-style">
+            <h1 class="po" style="text-align: center">登录</h1>
+            <div class="inpu">
+                <form name="myform" class="form" onsubmit="checkform()">
+                    <input type="text" placeholder="username" name="username"><br>
+                    <input type="password" placeholder="password" name="password"><br>
+                    <button type="submit" >login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--    <div id="home2" class="container tab-pane active">-->
+<!--        <div>-->
+<!--            <h1>这是分享页面，也是主页面</h1>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+</body>
+</html>
