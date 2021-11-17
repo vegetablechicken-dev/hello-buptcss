@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+课程
+{% endblock %}
+
+{% block content %}
+
+<div class="main">
+<div class="body-index" style="height: auto; padding-bottom: 15px">
+
+
+  <div id="course" class="container tab-pane " style="padding-top: 15px">
+    <p>这是课程内容</p>
+    <p>你可以学习需要的课程！</p>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">C语言</h4>
+        <p class="card-text">一门通用的计算机编程语言.</p>
+        <a href="{% url 'course_detail' 'C' 'default' %}" class="card-link">开始学习！</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">C++</h4>
+        <p class="card-text">C++是在C语言基础上开发的一种通用编程语言</p>
+        <a href="{% url 'course_detail' 'CPP' 'default' %}" class="card-link">开始学习</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Python</h4>
+        <p class="card-text">Python是一种面向对象、解释型计算机程序设计语言</p>
+        <a href="{% url 'course_detail' 'Python' 'default' %}" class="card-link">开始学习！</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Java</h4>
+        <p class="card-text">一种可以撰写跨平台应用的面向对象的程序设计语言.</p>
+        <a href="{% url 'course_detail' 'Java' 'default' %}" class="card-link">开始学习！</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block resource %}
+    <script>
+    function func1(){
+        x = document.getElementById('prompt');
+        x.innerHTML = '将在2秒后返回主页';
+    }
+    </script>
+    <script>
+    function func2(){
+        x = document.getElementById('prompt');
+        x.innerHTML = '将在1秒后返回主页';
+    }
+    </script>
+    <script>
+    function func3(){
+        window.location.href='/';
+    }
+    </script>
+{% endblock %}
+
+{% block title %}
+提示
+{% endblock %}
+
+{% block content %}
+<div class="body-index" style="height: 600px">
+  <div class="Userindex_class_top">
+    <div style="font-size: xx-large; text-align: center">请先登录/注册</div>
+      <div style="font-size: 14px; text-align: center; padding-top: 20px" id="prompt">将在3秒后返回主页</div>
+  </div>
+</div>
+
+    <script>
+    setTimeout('func1()', 1000);
+    setTimeout('func2()', 2000);
+    setTimeout('func3()', 3000);
+    </script>
+
+{% endblock %}

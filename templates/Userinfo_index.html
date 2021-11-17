@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}
+个人信息
+{% endblock %}
+
+{% block content %}
+<div class="body-index" style="height: auto">
+<div class="Userindex_top">
+  <h1 style="text-align: center">{{ user.username }}</h1>
+    <h5 style="text-align: center">学生账户</h5>
+</div>
+  <div class="Userindex_body">
+    <table class="table table-borderless" style="position: center" >
+      <thead style="text-align: center">
+      <tr>
+        <th style="width: 30%" class="text-primary h3">Submissions</th>
+        <th style="width: 30%" class="text-primary h3">Solved</th>
+        <th style="width: 30%" class="text-primary h3">EXP</th>
+      </tr>
+      </thead>
+      <tbody style="text-align: center">
+      <tr>
+        <td class="text-primary h3">{{ user.submit }}</td>
+        <td class="text-primary h3">{{ user.solve }}</td>
+        <td class="text-primary h3">{{ user.exp }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<div class="Userindex_body">
+  <h2 style="text-align: center">我的任务</h2>
+<br/>
+{% if not class_list %}
+  <h4 style="text-align: center">暂无任务</h4>
+{% else %}
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th style="width: 25%">来源班级</th>
+            <th style="width: 30%">作业</th>
+            <th style="width: 30%">内容</th>
+            <th style="width: 15%">进度</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for j in class_list %}
+            {% for i in j.task_list %}
+            <tr>
+                <td>{{ i.from_class }}</td>
+                <td>{{ i.class_homework }}</td>
+                <td><a href="{% url 'course_detail' i.course_type i.class_course %}">{{ i.class_course }}</a></td>
+                <td>{{ i.fin_status }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+</div>
+</div>
+
+
+{#  <div class="Userindex_class_top">#}
+{#    <span style="font-size: xx-large">班</span>#}
+{#    <span style="width: 20px"></span>#}
+{#    <span style="font-size: xx-large">级</span>#}
+{#  </div>#}
+{#<div class="container">#}
+{#  <ul class="nav nav-tabs" role="tablist">#}
+{#    <li class="nav-item">#}
+{#      <a class="nav-link active" data-toggle="tab" href="#jionclass">加入班级</a>#}
+{#    </li>#}
+{#    <li class="nav-item">#}
+{#      <a class="nav-link" data-toggle="tab" href="#myclass">我的班级</a>#}
+{#    </li>#}
+{#  </ul>#}
+{#</div>#}
+{#  <div class="tab-content">#}
+{#<!--    显示所有班级-->#}
+{#  <div class="container tab-pane active" id="jionclass">#}
+{#  <div class="class_search">#}
+{#    <input type="text" placeholder="请输入班级ID" >#}
+{#    <button class="btn btn-info btn-search">查找</button>#}
+{#  </div>#}
+{##}
+{#<!--  班级展示    -->#}
+{##}
+{#<div class="container">#}
+{#  <table class="table table-hover">#}
+{#    <thead>#}
+{#    <tr>#}
+{#      <th>班级名称</th>#}
+{#      <th>人数</th>#}
+{#      <th>操作</th>#}
+{#    </tr>#}
+{#    </thead>#}
+{#<!--    班级列表-->#}
+{#    <div class="container">#}
+{#    <tbody>#}
+{#    <tr>#}
+{#      <td>{{ACM集训队}}</td>#}
+{#      <td>{{current}}/{{all}}</td>#}
+{#      <td><button type="button" class="btn btn-primary" onclick="join_class()">加入班级</button></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>班级二</td>#}
+{#      <td>Moe</td>#}
+{#      <td>mary@example.com</td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>July</td>#}
+{#      <td>Dooley</td>#}
+{#      <td>july@example.com</td>#}
+{#    </tr>#}
+{#    </tbody>#}
+{#    </div>#}
+{#  </table>#}
+{#</div>#}
+{#    </div>#}
+{#<!--    显示我的班级-->#}
+{#    <div class="container tab-pane fade" id="myclass">#}
+{#      <div class="container">#}
+{#        <table class="table table-hover">#}
+{#          <thead>#}
+{#          <tr>#}
+{#            <th>班级名称</th>#}
+{#            <th>人数</th>#}
+{#            <th>操作</th>#}
+{#            <th>操作</th>#}
+{#          </tr>#}
+{#          </thead>#}
+{#          <!--    班级列表-->#}
+{#          <div class="container">#}
+{#            <tbody>#}
+{#            <tr>#}
+{#              <td>{{ACM集训队}}</td>#}
+{#              <td>{{current}}</td>#}
+{#              <td><button type="button" class="btn btn-primary" onclick="check_homework()">查看作业</button> </td>#}
+{#              <td>  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#runclass">#}
+{#                退出班级#}
+{#              </button></td>#}
+{#            </tr>#}
+{#            </tbody>#}
+{#          </div>#}
+{#        </table>#}
+{#      </div>#}
+{#    </div>#}
+{#</div>#}
+{#</div>#}
+{#<!--提示是否退出班级的模拟框-->#}
+{#<div class="modal fade" id="runclass">#}
+{#  <div class="modal-dialog">#}
+{#    <div class="modal-content">#}
+{##}
+{#      <!-- 模态框头部 -->#}
+{#      <div class="modal-header">#}
+{#        <h4 class="modal-title" style="text-align: center">警告</h4>#}
+{#        <button type="button" class="close" data-dismiss="modal">&times;</button>#}
+{#      </div>#}
+{##}
+{#      <!-- 模态框主体 -->#}
+{#      <div class="modal-body">#}
+{#        你确定要退出该班级吗？#}
+{#      </div>#}
+{##}
+{#      <!-- 模态框底部 -->#}
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-secondary" data-dismiss="modal">确认退出</button>#}
+{#        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>#}
+{#      </div>#}
+
+    </div>
+  </div>
+</div>
+</body>
+
+{% endblock %}

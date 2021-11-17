@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Problem
+{% endblock %}
+
+{#{% block html %}#}
+{#xmlns:s="http://www.w3.org/1999/xhtml"#}
+{#{% endblock %}#}
+
+{% block resource %}
+<script src="/statics/src-min/ace.js"></script>
+<script src="/statics/src-min/ext-language_tools.js"></script>
+<script src="/statics/src-min/mode-java.js"></script>
+<script src="/statics/src-min/mode-javascript.js"></script>
+<script src="/statics/src-min/mode-python.js"></script>
+<script src="/statics/src-min/theme-chaos.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    {% csrf_token %}
+<div class="body-index" style="background-color: white">
+<div class="row">
+    <div class="col-md-9">
+      <h1 style="margin-left: 2%">{{ pro.problem_id }}: {{ pro.problem }}</h1>
+      <h4 class="font-weight-normal" style="margin-left: 2%">题目描述</h4>
+      <div style="margin-left: 2%">
+        <p class="question_dicribe">
+            {{ pro.description }}
+        </p> </div>
+
+      <div>
+        <h4 class="font-weight-normal" style="margin-left: 2%">输入格式</h4>
+        <div style="margin-left: 2%"><p class="question_dicribe">{{ pro.input }}</p></div>
+      </div>
+
+      <div>
+        <h4 class="font-weight-normal" style="margin-left: 2%">输出格式</h4>
+        <div style="margin-left: 2%"><p class="question_dicribe">{{ pro.output }}</p></div>
+      </div>
+
+      <div>
+        <h4 class="font-weight-normal rounded" style="margin-left: 2%">输入样例</h4>
+        <div class="question_output">
+        <pre style="margin-left: 1px" class="question_describe">{{ pro.sample_input }}</pre>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-weight-normal rounded" style="margin-left: 2%">输出样例</h4>
+        <div class="question_output">
+          <pre style="margin-left: 1px" class="question_describe">{{ pro.sample_output }}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="container  question_introduction col-md-3" style="margin-left: -2%">
+      <h2>题目信息</h2>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <td>难度</td>
+          <td>{{ pro.level }}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>正确率</td>
+          <td>{{ pro.pass_rate }}</td>
+        </tr>
+        <tr>
+          <td>来源</td>
+          <td>{{ pro.author }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+{##}
+{##}
+{##}
+{#    <div style="width:100% ;margin-top: 5%" >#}
+{#    <div style="width: 20%;height:10%;float: right;position: relative">#}
+{#    <div style="float: left;position: relative">Lanuage</div>#}
+{#    <select  id="language" onchange="setLanguage(value)">#}
+{#        <option value="C/C++">C/C++</option>#}
+{#        <option value="Java">Java</option>#}
+{#        <option value="Python">Python</option>#}
+{#    </select>#}
+{#    </div>#}
+{#    <div style="width: 20%;float: right;height:10%;margin-bottom: auto;position: relative">#}
+{#        <div style="float: left;position: relative">Theme</div>#}
+{#        <select  id="language" onchange="settheme(value)">#}
+{#            <option value="white">White</option>#}
+{#            <option value="Ambiance">Black</option>#}
+{#        </select>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#    <form id="login" name="login" method="post" enctype="multipart/form-data">#}
+{##}
+{#        <pre id="code" style="min-height:600px;border-style: groove;width: 100%"></pre>#}
+{##}
+{#    <div class="question_submit" >#}
+{#        <button type="submit" class="btn btn-outline-success question_submit_btn" >提交代码</button>#}
+{#        <button type="submit" class="btn btn-outline-secondary question_submit_btn" >调试代码</button>#}
+{#        </div>#}
+{##}
+{#    </div>#}
+
+    <hr>
+<div>
+    <div style="padding: 5px 15px 15px 15px">
+ <select id="change_theme">
+  <option value="1">白色</option>
+  <option value="2">黑色</option>
+ </select>
+
+  <select id="change_language" name="change_language">
+   <option value="C/C++">C/C++</option>
+   <option value="Java">Java</option>
+   <option value="Python">Python</option>
+  </select>
+    </div>
+
+<pre id="codeEditor" class="ace_editor" style="min-height:320px">
+    <s:textarea id="code" name="code" xmlns:s="http://www.w3.org/1999/xhtml"></s:textarea>
+</pre>
+     <button id="test" type="submit" class="btn btn-outline-success question_submit_btn">提交代码</button>
+</div>
+
+<script>
+    //初始化代码编辑器
+
+    //获取控件   id ：codeEditor
+    const editor = ace.edit("codeEditor");
+    //设置风格和语言（更多风格和语言，请到github上相应目录查看）
+    let theme = "xcode";
+    editor.setTheme("ace/theme/" + theme);
+    //theme = "terminal";
+    //语言
+    let language = "c_cpp";
+    editor.session.setMode("ace/mode/" + language);
+    $("#change_theme").change(function(){
+     if($("#change_theme").val()=="1")
+     {
+      theme = "xcode";
+      editor.setTheme("ace/theme/" + theme);
+     }
+      if($("#change_theme").val()=="2")
+      {
+       theme = "chaos";
+       editor.setTheme("ace/theme/" + theme);
+      }
+    });
+    $("#change_language").change(function(){
+     const lan = $("#change_language").val();
+     if(lan=="C/C++"){
+      language = "c_cpp";
+     }
+     if(lan=="Java"){
+      language = "java";
+     }
+     if(lan=="Python"){
+      language = "python";
+     }
+     //if(lan=="Javascript"){
+     // language = "javascript";
+     //}
+     editor.session.setMode("ace/mode/" + language);
+    })
+    editor.setTheme("ace/theme/" + theme);
+    editor.session.setMode("ace/mode/" + language);
+    //字体大小
+    editor.setFontSize(15);
+    //设置只读（true时只读，用于展示代码）
+    editor.setReadOnly(false);
+    //自动换行,设置为off关闭
+    editor.setOption("wrap", "free");
+    //启用提示菜单
+    ace.require("ace/ext/language_tools");
+    editor.setOptions({
+        enableBasicAutocompletion: false,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+
+        $("#test").click(function(){
+     const code_content = editor.getSession().getValue();
+     const lanugage = $("#change_language").val();
+     var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+
+     $.ajax({
+      url:"/problem_detail/{{ pro.problem_id }}",
+      data:{"code_content":code_content,
+            "language":language,
+            'csrfmiddlewaretoken': csrf_token
+      },
+      type:"post",
+      async:true,
+      success:(function () {
+       alert("提交成功！");
+      })
+     });
+    });
+
+
+
+    const languageTools = ace.require("ace/ext/language_tools");
+    languageTools.addCompleter({
+     getCompletions: function (editor, session, pos, prefix, callback) {
+      callback(null, [
+       {
+        name: "for()",
+        value: "for(int i = 0; i < n; i ++){" + "\n" + "\n" +
+                "}",
+        caption: "for(",
+        meta: "for(.....)",
+        type: "local",
+        score: 100 // 让test排在最上面
+       }
+      ]);
+      callback(null, [
+       {
+        name: "main",
+        value: "main(){" + "\n" + "\n" +
+                "}",
+        caption: "main",
+        meta: "主函数",
+        type: "local",
+        score: 100 // 让test排在最上面
+       }
+      ]);
+     }
+    })
+</script>
+</script>
+</div>
+{% endblock %}

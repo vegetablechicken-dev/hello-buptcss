@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+题库
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+<div class="body-index">
+
+<div class="Userindex_class_top">
+    <span style="font-size: xx-large">题目列表</span>
+  </div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>标题</th>
+        <th>作者</th>
+        <th>通过率</th>
+        <th>难度</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for i in list %}
+        {% if i.answer_authority == 1 %}
+            <tr>
+                <td>{{ i.problem_id }}</td>
+                <td><a href="{% url 'problem_detail' i.problem_id %}">{{ i.problem }}</a> </td>
+                <td>{{ i.author }}</td>
+                <td>{{ i.pass_rate }}</td>
+                <td>{{ i.level }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+
+    </tbody>
+</table>
+
+</div>
+    </div>
+{% endblock %}

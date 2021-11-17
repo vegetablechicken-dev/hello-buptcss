@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block titile %}
+创建课程
+{% endblock %}
+
+{% block ajax %}
+
+<script>
+$(document).ready(function() {
+    $("#get_value").click(function (){
+        var question_list =[];//定义一个数组
+        var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+        $('input:checkbox:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数
+        question_list.push($(this).val());//将选中的值添加到数组chk_value中
+ });
+
+        const course_title = $("#course_name").val();
+            if(course_title=='')
+            {
+                alert("请输入课程名");
+                return;
+            }
+        const course_content = $("#course_content").val();
+            if(course_content=='')
+            {
+                alert("请输入课程内容");
+                return;
+            }
+        const course_type = $("#course_type").val();
+            if(course_type=='')
+            {
+                alert("请输入课程类型");
+                return;
+            }
+        var res_question = question_list.join("|");
+
+
+        $.ajax({
+            url: "/new_course/",
+            data: {
+                "course_title": course_title,
+                "course_content": course_content,
+                "course_type": course_type,
+                "course_question": res_question,
+                'csrfmiddlewaretoken': csrf_token,
+            },
+            type: "post",
+            async: true,
+            success: (function (data) {
+                if(data.res=='OK'){
+                    window.location.href='/userinfo';
+                }
+                else{
+                    alert('data.res');
+                }
+            }),
+            error: (function (data){
+                alert('发生错误');
+            })
+        });
+});
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="body-index">
+    <div class="card" style="width: 100%;margin:0 auto">
+    <div class="form-group">
+        <label for="course_name" >课程名:</label>
+        <input type="text" class="form-control" id="course_name">
+    </div>
+
+    <div class="form-group">
+        <label for="course_content">课程内容:</label>
+        <textarea type="text" class="form-control" id="course_content" rows="4"></textarea>
+    </div>
+
+        <label for="qaz">添加题课程目:</label>
+        <form name="qwe" id="qaz">
+        <div style="font-size: 13px; color: darkgray; margin-top: 10px">只能选择公共题目和自己发布的题目</div>
+        <div class="form-control" style="overflow: scroll;height: 150px;width: 100%" >
+            {% for i in problem_list %}
+                <input type="checkbox" value="{{ i.problem_id }}" name="question">{{ i.problem_id }}.{{ i.problem }}<br>
+            {% endfor %}
+
+        </div>
+            <lable for="course_type">课程类型:</lable>
+            <select class="form-control" id="course_type">
+                <option value="C">C</option>
+                <option value="CPP">C++</option>
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+            </select>
+            <br>
+        </form>
+        <button type="button" id="get_value">提交</button>
+        </div>
+        </div>
+
+
+{% endblock %}

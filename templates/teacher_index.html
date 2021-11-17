@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+个人信息
+{% endblock %}
+
+{% block content %}
+<div class="body-index" style="height: 600px">
+<div class="Userindex_top">
+  <h1 style="text-align: center">{{ username }}</h1>
+    <h5 style="text-align: center">教师账户</h5>
+    <div style="text-align: center; padding-top: 15px">
+     <button type="button" class="btn btn-primary" id="new_course" onclick="window.location.href='{% url 'new_course' %}'">发布课程</button>
+     <button type="button" class="btn btn-primary" id="new-problem" onclick="window.location.href='{% url 'new_problem' %}'">发布题目</button>
+    </div>
+</div>
+  <div class="Userindex_body">
+    <table class="table table-borderless" style="position: center" >
+      <thead style="text-align: center">
+      <tr>
+        <th style="width: 30%" class="text-primary h3">发布课程</th>
+        <th style="width: 30%" class="text-primary h3">发布题目</th>
+      </tr>
+      </thead>
+      <tbody style="text-align: center">
+      <tr>
+        <td class="text-primary h3">{{ cou_num }}</td>
+        <td class="text-primary h3">{{ pro_num }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+    </div>
+  </div>
+</div>
+</body>
+
+{% endblock %}

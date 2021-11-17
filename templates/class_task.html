@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+班级任务
+{% endblock %}
+
+{% block content %}
+<div class="body-index" style="height: 500px">
+  <h2 style="text-align: center">班级任务</h2>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>作业</th>
+            <th>内容</th>
+            <th>进度</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in task_list %}
+        <tr>
+            <td>{{ i.class_homework }}</td>
+            <td><a href="{% url 'course_detail' i.course_type i.class_course %}">{{ i.class_course }}</a></td>
+            <td>{{ i.fin_status }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
