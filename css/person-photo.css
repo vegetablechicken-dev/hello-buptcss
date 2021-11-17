@@ -1,0 +1,35 @@
+.photo {
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    box-sizing: border-box;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+    border-style: groove;
+    position: relative;
+    top:100px;
+}
+.myphoto{
+
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    box-sizing: border-box;
+    margin: 10% 10% auto 10%;
+    border-style: solid;
+}
+#main{
+    border-style: none;
+    position: relative;
+    width: 60%;
+    top: 100px;
+}
