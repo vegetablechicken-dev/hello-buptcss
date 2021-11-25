@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}
+班级
+{% endblock %}
+
+{% block content %}
+<div class="body-index" style="height: 1000px">
+
+  <div class="Userindex_class_top">
+    <span style="font-size: xx-large">班</span>
+    <span style="width: 20px"></span>
+    <span style="font-size: xx-large">级</span>
+  </div>
+<div class="container">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#joinclass">加入班级</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#myclass">我的班级</a>
+    </li>
+  </ul>
+</div>
+  <div class="tab-content">
+<!--    显示所有班级-->
+  <div class="container tab-pane active" id="joinclass">
+   <div class="class_search">
+       <form method="post" enctype="multipart/form-data">
+           {% csrf_token %}
+            <input type="text" placeholder="请输入班级名称" id="search_name" name="search_name">
+            <button type="submit" class="btn btn-info btn-search" id="search" name="search">查找</button>
+           <button type="button" class="btn btn-primary" id="creat_class" onclick="window.location.href='{% url 'create_class' %}'">创建班级</button>
+       </form>
+ </div>
+
+<!--  班级展示    -->
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>班级名称</th>
+      <th>人数</th>
+      <th>班级简介</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+<!--    班级列表-->
+    <div class="container">
+    <tbody>
+
+        {% for i in search_result %}
+            <tr>
+      <td>{{ i.className }}</td>
+      <td>{{ i.num }}</td>
+      <td>{{ i.introduction }}</td>
+                {% if i.is_joined %}
+      <td>已加入</td>
+                {% else %}
+      <td><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'class_join' i.className %}'">加入班级</button></td>
+                 {% endif %}
+    </tr>
+        {% endfor %}
+    </tbody>
+    </div>
+  </table>
+</div>
+    </div>
+<!--    显示我的班级-->
+    <div class="container tab-pane fade" id="myclass">
+      <div class="container">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>班级名称</th>
+            <th>人数</th>
+            <th>操作</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <!--    班级列表-->
+          <div class="container">
+            <tbody>
+            {% for j in class_list %}
+            <tr>
+              <td>{{ j.className }}</td>
+              <td>{{ j.num }}</td>
+              <td><button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'manage_class' j.className %}'">管理班级</button> </td>
+              <td>  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ j.className }}">
+                退出班级
+              </button></td>
+            </tr>
+            <!--提示是否退出班级的模拟框-->
+<div class="modal fade" id="{{ j.className }}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title" style="text-align: center">警告</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- 模态框主体 -->
+      <div class="modal-body">
+        你确定要退出该班级吗？
+      </div>
+
+      <!-- 模态框底部 -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'quit_class' j.className %}'">确认退出</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+            {% endfor %}
+            </tbody>
+          </div>
+        </table>
+      </div>
+    </div>
+</div>
+</div>
+
+</body>
+{% endblock %}

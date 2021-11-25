@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+信息修改
+{% endblock %}
+
+{% block resource %}
+<link rel="stylesheet" href="/statics/css/person-photo.css">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+<div class="body-index" style="padding: 15px; height: auto">
+    <div class="Userindex_class_top">
+    <span style="font-size: xx-large">信息修改</span>
+  </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">用户名:</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}">
+        </div>
+        <div class="form-group">
+            <label for="email">邮箱:</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+        </div>
+        <div class="form-group">
+            <label for="introduction">简介:</label>
+            <textarea class="form-control" rows="5" id="introduce" name="introduce" >{{ user.introduction }}</textarea>
+        </div>
+<!--        <div class="form-check">-->
+<!--            <label class="form-check-label">-->
+<!--                <input class="form-check-input" type="checkbox" >-->
+<!--            </label>-->
+<!--        </div>-->
+
+        <button type="submit" class="btn btn-primary" name="update">修改信息</button>
+
+        {% if alert_type == 'error' %}
+            <div class="alert alert-danger" style="top: 15px">{{ update_result }}</div>
+        {% elif alert_type == 'success' %}
+            <div class="alert alert-primary" style="top: 15px">{{ update_result }}</div>
+        {% endif %}
+    </form>
+
+</div>
+</div>
+
+{% endblock %}

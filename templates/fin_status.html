@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+学生进度
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+<div class="body-index">
+
+<div class="Userindex_class_top">
+    <span style="font-size: xx-large">学生进度</span>
+  </div>
+
+<div><h4 style="text-align: center">完成率: {{ fin_rate }} ({{ fin_num }}/{{ stu_num }})</h4></div>
+<br />
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>用户名</th>
+        <th>Email</th>
+        <th>进度</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for i in list %}
+            <tr>
+                <td>{{ i.studentUsername }}</td>
+                <td><a href="mailto:{{ i.email }}">{{ i.email }}</a></td>
+                <td>{{ i.is_fin }}</td>
+            </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+</div>
+    </div>
+{% endblock %}

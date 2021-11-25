@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+ {% block title %}
+     创建班级
+{% endblock %}
+
+  {% block ajax %}
+
+  <script>
+    $(document).ready(function() {
+        $("#create").click(function () {
+            var name = $("#classname").val();
+            var max_people = $("#max_number").val();
+            var class_introduction = $("#class_introduction").val();
+            var ifjion = $("#ifjoin").val();
+            var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            if (name == '') {
+                alert("班级名不能为空！");
+                return;
+            }
+
+            if (max_people <= 0) {
+                alert("班级最大人数不能小于0");
+                return;
+            }
+            $.ajax({
+                url: "/create_class/",
+                type: "post",
+                data: {
+                    "class_name": name,
+                    "max_number": max_people,
+                    "ifjion": ifjion,
+                    "class_intro": class_introduction,
+                    'csrfmiddlewaretoken': csrf_token
+                },
+                async: true,
+                success: (function (data) {
+                        alert(data.res);
+                        if(data.res=='创建成功'){
+                            window.location.href="/class_join/".concat(name);
+                        }
+                    }
+                ),
+                error: (function (data){
+                    alert("请求失败"+ data);
+                })
+
+            });
+        });
+    });
+  </script>
+
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+<div class="body-index" style="height: 640px">
+<br />
+<h2 style="text-align: center">创建班级</h2><br />
+
+  <div class="container card createclass_body" style="width: 70%">
+
+
+      <div class="form-group ">
+        <label for="classname">班级名:</label>
+        <input type="text" class="form-control" id="classname">
+      </div>
+      <div class="form-group">
+        <label for="max_number">最大人数:</label>
+        <input type="number" class="form-control" id="max_number">
+      </div>
+      <div class="form-group">
+        <label for="ifjoin">是否允许他人加入:</label>
+        <select class="form-control" id="ifjoin">
+          <option>是</option>
+          <option>否</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="class_introduction">一些班级描述:</label>
+        <textarea class="form-control" rows="3" id="class_introduction"></textarea>
+      </div>
+
+    <button type="button" class="btn btn-primary btn-block" id="create">创建</button>
+    <button type="reset" class="btn btn-default btn-block">重置</button>
+
+  </div>
+</div>
+    {% endblock %}

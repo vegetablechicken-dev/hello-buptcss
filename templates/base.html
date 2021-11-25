@@ -1,0 +1,264 @@
+{% load static %}
+<html lang="en" {% block html %}{% endblock %}>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/statics/css/455.css">
+    {% block resource %}
+    {% endblock %}
+    <link rel="stylesheet" href="/statics/css/bootstrap.min.css">
+   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/statics/js/bootstrap.bundle.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script src="/statics/js/bootstrap.min.js"></script>
+
+    {% block ajax %}
+    {% endblock %}
+
+  <script>
+      function reload()
+      {
+          location.reload();
+      }
+  </script>
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body style="height: 1500px" >
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark  nav-tabs fixed-top top">
+  <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
+
+  <ul class="nav justify-content-center">
+    <li class="nav-item ul-item">
+      <a class="nav-link" href="{% url 'course' %}">课程</a>
+    </li>
+    <li class="nav-item ul-item" >
+      <a class="nav-link" href="{% url 'class' %}">班级</a>
+    </li>
+    <li class="nav-item ul-item">
+      <a class="nav-link" href="{% url 'problem' %}">题库</a>
+    </li>
+{#    <li class="nav-item ul-item">#}
+{#      <a class="nav-link" data-toggle="tab" href="#share">分享</a>#}
+{#    </li>#}
+{#    <li class="nav-item ul-item">#}
+{#      <a class="nav-link" data-toggle="tab" href="#">其他</a>#}
+{#    </li>#}
+
+  </ul>
+
+<!--  <ul class="nav navbar-nav navbar-right">-->
+
+    <ul class="nav r-login">
+
+        {% if login_status == 'login' %}
+        <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                个人中心
+                </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'userinfo' %}">个人主页</a>
+                <a class="dropdown-item" href="{% url 'update' %}">信息修改</a>
+                <a class="dropdown-item" href="{% url 'password' %}">修改密码</a>
+                <h5 class="dropdown-header"></h5>
+                <button class="dropdown-item" onclick="window.location.href='{% url 'logout' %}'">退出登录</button>
+            </div>
+        </div>
+
+        {% else %}
+        <li class="nav-item"><button id="open_login" type="button" class="btn btn-link nav-link" data-toggle="modal" data-target="#login">登录</button> </li>
+        <li class="nav-item"><button id="open_reg" type="button" class="btn btn-link nav-link" data-toggle="modal" data-target="#register">注册</button> </li>
+
+        {% endif %}
+    </ul>
+
+</nav>
+
+
+
+
+
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h4 class="modal-title" id="login-title" style="text-align: center">
+        登录
+      </h4>
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <form id="login" name="login" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="usr1">用户名:</label>
+            <input type="text" class="form-control" id="usr1" name="usr1">
+          </div>
+
+          <div class="form-group">
+            <label for="pwd1">密码:</label>
+            <input type="password" class="form-control" id="pwd1" name="pwd1">
+          </div>
+
+            <button type="submit" class="btn btn-default" name="login">登录</button>
+            {%  if login_err  %}
+    <div class="alert alert-danger">{{ login_err }}</div>
+    <br />
+{% endif %}
+        <br />
+        </form>
+
+          <iframe id="login" name="login" style="display: none;"></iframe>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal" data-toggle="modal" data-target="#register">现在注册
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<!--<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+
+<!--  <div class="login modal-dialog">-->
+<!--    <div class="modal-header"><h1>登录</h1></div>-->
+<!--    <div class="modal-dialog">-->
+<!--    <div class="model-content">-->
+<!--      <div class="modal-body">-->
+<!--        <form  style="width: 40%">-->
+<!--          <div class="form-group">-->
+<!--            <label for="usr1" aria-hidden="true">用户名:</label>-->
+<!--            <input type="text" class="form-control" id="usr1" aria-hidden="true">-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="pwd1">密码:</label>-->
+<!--            <input type="password" class="form-control" id="pwd1" aria-hidden="true">-->
+<!--          </div>-->
+<!--          <button type="submit" class="btn btn-primary" aria-hidden="true">登录</button>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--&lt;!&ndash;    <p>还没有账号？</p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button data-toggle="modal" data-target="#register" aria-hidden="true">注册</button>&ndash;&gt;-->
+
+
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-default" data-dismiss="modal">关闭-->
+<!--          </button>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"> <h4 class="modal-title" id="register-title" style="text-align: center">
+        注册
+      </h4>
+        <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+        </button>
+
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="usr2">用户名:</label>
+            <input type="text" class="form-control" id="usr2" name="usr2">
+          </div>
+          <div class="form-group">
+            <label for="email2">邮箱:</label>
+            <input type="email" class="form-control" id="email2" name="email2">
+          </div>
+{#          <div class="form-group">#}
+{#            <label for="tel2">电话:</label>#}
+{#            <input type="tel" class="form-control" id="tel2">#}
+{#          </div>#}
+          <div class="form-group">
+            <label for="pwd2">密码:</label>
+            <input type="password" class="form-control" id="pwd2" name="pwd2">
+          </div>
+            <div class="radio">
+                <label><input type="radio" name="type" value="student">我是学生</label>
+                <label><input type="radio" name="type" value="teacher">我是老师</label>
+            </div>
+            {%  if register_err  %}
+    <div class="alert alert-danger">{{ register_err }}</div>
+    <br />
+{% endif %}
+            <button type="submit" class="btn btn-default" name="register">注册</button>
+{#            <div class="form-group">#}
+{#                <label for="pwd3">确认密码:</label>#}
+{#                <input type="password" class="form-control" id="pwd3">#}
+{#            </div>#}
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+                data-dismiss="modal">关闭
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div>
+<!--  <div class="login">-->
+<!--    <h1>Welcome</h1>-->
+<!--    <form class="container" style="width: 40%">-->
+<!--      <div class="form-group">-->
+<!--        <label for="usr">用户名:</label>-->
+<!--        <input type="text" class="form-control" id="usr">-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="pwd">密码:</label>-->
+<!--        <input type="password" class="form-control" id="pwd">-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="em">邮箱:</label>-->
+<!--        <input type="email" class="form-control" id="em">-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="tel">电话:</label>-->
+<!--        <input type="text" class="form-control" id="tel">-->
+<!--      </div>-->
+<!--      <button type="submit" class="btn btn-primary">注册</button>-->
+<!--    </form>-->
+<!--    <p>已有账号？</p>-->
+<!--    <button data-dismiss="modal" data-toggle="modal" data-target="#login">登录</button>-->
+<!--    <div class="button1">-->
+<!--      <button type="button" data-dismiss="modal" data-target="#register">退出</button>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+
+{% if refresh %}
+<script>window.location.href='{% url 'home' %}'</script>
+{% endif %}
+
+{% if open_login %}
+    <script>
+    $('#open_login').trigger("click");
+    </script>
+{% endif %}
+
+{% if open_reg %}
+    <script>
+    $('#open_reg').trigger("click");
+    </script>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

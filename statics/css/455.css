@@ -1,0 +1,123 @@
+.button1{
+  width:100%;
+  text-align: center;
+}
+.login{
+  border-style: groove;
+  width:45%;
+  display: block;
+  margin: 0 auto;
+  background-color: aliceblue;
+}
+.ul-item{
+  display: inline;
+  padding: 0 30px;
+}
+.r-login{
+  flex-wrap: wrap;
+  position: absolute;
+
+  right: 10%;
+
+}
+.body-index {
+  height: 1500px;
+  position: absolute;
+  top:10%;
+  left: 20%;
+  right: 20%;
+  border-style: groove;
+  border-width: 2px;
+  width: 60%;
+  vertical-align: center;
+
+}
+.main{
+  /*background-image: url("https://img0.baidu.com/it/u=806559530,1887250799&fm=26&fmt=auto");*/
+  width: 100%;
+  background-size: 100%;
+}
+.top{
+  position: fixed;
+  width:100%;
+}
+.class_search{
+  position: relative;
+   left:5%;}
+.course_list{
+  position: fixed;
+  width:15%;
+  top:10%;
+  left:2%;
+}
+.problem_list{
+  position: fixed;
+  width:15%;
+  top:10%;
+  right:2%;
+}
+.Userindex_top{
+  position: relative;
+  margin-top: 10%;
+}
+.Userindex_body{
+  flex-wrap: wrap;
+  margin-top: 20%;
+}
+.Userindex_class_top{
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.ace_editor {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  direction: ltr;
+  text-align: left;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.ace_text-input {
+  position: absolute;
+  z-index: 0;
+  width: 0.5em;
+  height: 1em;
+  opacity: 0;
+  background: transparent;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  font: inherit;
+  padding: 0 1px;
+  margin: 0 -1px;
+  contain: strict;
+  -ms-user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  user-select: text;
+  /*with `pre-line` chrome inserts &nbsp; instead of space*/
+  white-space: pre!important;
+}
+.question_output{
+  position: relative;
+  margin-left: 2%;
+  margin-right: 30%;
+  border-style: groove;
+  height: auto;
+  background-color: aliceblue;
+  padding-bottom: 0;
+}
+.question_submit{
+  width: 100%;
+  position: relative;
+}
+.question_submit_btn{
+  float: right;
+  position: relative;
+  margin-left: 10%;
+}

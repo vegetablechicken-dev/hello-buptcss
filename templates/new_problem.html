@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}
+创建问题
+{% endblock %}
+
+{% block ajax %}
+<script>
+  $(document).ready(function() {
+      $("#creat_question").click(function () {
+          var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+
+          let question_title = $("#question_title").val();
+          if ($.trim(question_title) == "") {
+              alert("题目标题不能为空");
+              return;
+          }
+          let question_descripition = $("#question_descripition").val();
+          if ($.trim(question_descripition) == "") {
+              alert("题目描述不能为空");
+              return;
+          }
+          let input_descripition = $("#input_descripition").val();
+          if ($.trim(input_descripition) == "") {
+              alert("输入描述不能为空");
+              return;
+          }
+          let output_descripition = $("#output_descripition").val();
+          if ($.trim(output_descripition) == "") {
+              alert("输出描述不能为空");
+              return;
+          }
+          let input = $("#input_example").val();
+          let output = $("#output_example").val();
+          if ($.trim(input) == "" || $.trim(output) == "") {
+              alert("输入输出样例不能为空");
+              return;
+          }
+          let level = $("#level").val();
+          let input01 = $("#input_example_01").val();
+          let output01 = $("#output_example_01").val();
+          let input02 = $("#input_example_02").val();
+          let output02 = $("#output_example_02").val();
+          let input03 = $("#input_example_03").val();
+          let output03 = $("#output_example_03").val();
+          let input04 = $("#input_example_04").val();
+          let output04 = $("#output_example_04").val();
+          let input05 = $("#input_example_05").val();
+          let output05 = $("#output_example_05").val();
+          if ($.trim(input01) == "" || $.trim(input02) == "" || $.trim(input03) == "" || $.trim(input04) == "" || $.trim(input05) == "") {
+              alert("输入测试样例需要填满");
+              return;
+          }
+          if ($.trim(output01) == "" || $.trim(output02) == "" || $.trim(output03) == "" || $.trim(output04) == "" || $.trim(output05) == "") {
+              alert("输出测试样例要填满");
+              return;
+          }
+          $.ajax({
+              url: "/new_problem/",
+              type: "post",
+              data: {
+                  "question_title": question_title,
+                  "question_descripition": question_descripition,
+                  "input_descripition": input_descripition,
+                  "output_descripition": output_descripition,
+                  "input": input,
+                  "output": output,
+                  "input01": input01,
+                  "output01": output01,
+                  "input02": input02,
+                  "output02": output02,
+                  "input03": input03,
+                  "output03": output03,
+                  "input04": input04,
+                  "output04": output04,
+                  "input05": input05,
+                  "output05": output05,
+                  "level": level,
+                  'csrfmiddlewaretoken': csrf_token
+              },
+              async: true,
+              success: (function () {
+                  window.location.href = '/userinfo';
+                  return;
+              }),
+              error: (function () {
+                  alert("创建失败！");
+                  return;
+              })
+          })
+      })
+  })
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h2>创建题目</h2>
+    {% csrf_token %}
+    <form>
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item"><div class="form-group">
+                <label for="question_title">题目标题:</label>
+                <input type="text" class="form-control" id="question_title">
+            </div>
+            </li>
+            <li class="list-group-item"><div class="form-group">
+                <label for="question_descripition">题目描述:</label>
+                <textarea class="form-control" rows="5" id="question_descripition"></textarea>
+            </div>
+            </li>
+             <li class="list-group-item">
+            <label for="level">难度:</label>
+            <select class="form-control" id="level">
+                <option value="1">1:very easy</option>
+                <option value="2">2:easy</option>
+                <option value="3">3:middle</option>
+                <option value="4">4:hard</option>
+                <option value="5">5:very hard</option>
+            </select>
+
+            </li>
+
+            <li class="list-group-item"><div class="form-group">
+                <label for="input_descripition">输入说明:</label>
+                <input type="text" class="form-control" id="input_descripition">
+            </div>
+            </li>
+            <li class="list-group-item">
+                <div class="form-group">
+                <label for="output_descripition">输出说明:</label>
+                <input type="text" class="form-control" id="output_descripition">
+            </div>
+            </li>
+            <li class="list-group-item">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>输入样例</th>
+                        <th>输出样例</th>
+                    </tr>
+                    <tr>
+                        <td><textarea class="form-control" rows="2" id="input_example"></textarea></td>
+                        <td><textarea class="form-control" rows="2" id="output_example"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>测试输入样例</th>
+                        <th>测试输出样例</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td> <textarea class="form-control" rows="2" id="input_example_01"></textarea></td>
+                        <td> <textarea class="form-control" rows="2" id="output_example_01"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td> <textarea class="form-control" rows="2" id="input_example_02"></textarea></td>
+                        <td> <textarea class="form-control" rows="2" id="output_example_02"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><textarea class="form-control" rows="2" id="input_example_03"></textarea></td>
+                        <td><textarea class="form-control" rows="2" id="output_example_03"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><textarea class="form-control" rows="2" id="input_example_04"></textarea></td>
+                        <td><textarea class="form-control" rows="2" id="output_example_04"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><textarea class="form-control" rows="2" id="input_example_05"></textarea></td>
+                        <td><textarea class="form-control" rows="2" id="output_example_05"></textarea></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </li>
+            <button type="button" class="btn btn-outline-primary" id="creat_question">创建</button>
+            <button type="reset" class="btn btn-outline-secondary">重置</button>
+        </ul>
+    </div>
+    </form>
+</div>
+
+{% endblock %}

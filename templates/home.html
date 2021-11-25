@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{#{% block resource %}#}
+{#<link rel="stylesheet" href="/statics/css/455.css">#}
+{#{% endblock %}#}
+
+{% block title %}
+主页
+{% endblock %}
+
+{% block content %}
+
+<div class="main">
+<div class="body-index" style="height: auto; padding-bottom: 15px">
+  <div class="card bg-info text-white">
+    <div class="card-body"><marquee><span style="font-weight: bolder;font-size: 40px;color: white;">{{ welcome }}</span></marquee></div>
+  </div>
+
+
+<!--  <div class="page-header">-->
+<!--    <h1>Example page header <small>Subtext for header</small></h1>-->
+<!--  </div>-->
+<!--  <div class="card">-->
+<!--    <div class="card-body">-->
+<!--      <h4 class="card-title">Card title</h4>-->
+<!--      <p class="card-text">Some example text. Some example text.</p>-->
+<!--      <a href="#" class="card-link">Card link</a>-->
+<!--      <a href="#" class="card-link">Another link</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+    <div style="position: relative; margin-top: 25px">
+    <h3 style="text-align: center" class="text-success">欢迎来到本网站</h3>
+    </div>
+  <div style="position: relative; margin-top: 30px">
+    <h4 style="text-align: center">这是一个基于Django的轻量级在线学习和代码评测平台 </h4>
+  </div>
+    <div style="position: relative; margin-top: 30px">
+    <pre class=" h5" style="text-align: center">如果你是学生用户，你可以在线学习相关编程</pre>
+      <pre class=" h5" style="text-align: center">知识，并随时用题目来巩固学习成果</pre>
+    </div>
+
+  <div style="position: relative; margin-top: 30px">
+    <pre class=" h5" style="text-align: center">如果你是教师用户，你可以创建自己的班级</pre>
+    <pre class=" h5" style="text-align: center">让您的学生加入，并布置相应题目和任务</pre>
+  </div>
+  <div class="container">
+    <h2>功能介绍</h2>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">课程</h4>
+        <p class="card-text">你可以在这里选择感兴趣的内容学习~</p>
+        <a href="{% url 'course' %}" class="card-link">现在开始！</a>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">班级</h4>
+        <p class="card-text">你可以在这里加入老师的班级</p>
+        <a href="{% url 'class' %}" class="card-link">现在开始！</a>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">题库</h4>
+        <p class="card-text">你可以在这里快乐地刷题~</p>
+        <a href="{% url 'problem' %}" class="card-link">现在开始！</a>
+      </div>
+    </div>
+  </div>
+
+{#<div class="tab-content">#}
+{#  <div id="course" class="container tab-pane fade">#}
+{#    <p>这是课程内容</p>#}
+{#    <p>你可以学习需要的课程！</p>#}
+{#  </div>#}
+{#  <div id="class" class="container tab-pane fade">#}
+{#    <p>这是班级内容</p>#}
+{#    <p>在这里，你可以加入相应的班级！</p>#}
+{#    <div class="card">#}
+{#      <div class="card-header">头部</div>#}
+{#      <div class="card-body">内容</div>#}
+{#      <div class="card-footer">底部</div>#}
+{#    </div>#}
+{#    <div class="card">#}
+{#      <div class="card-header">头部</div>#}
+{#      <div class="card-body">内容</div>#}
+{#      <div class="card-footer">底部</div>#}
+{#    </div>#}
+{#    <div class="card">#}
+{#      <div class="card-header">头部</div>#}
+{#      <div class="card-body">内容</div>#}
+{#      <div class="card-footer">底部</div>#}
+{#    </div>#}
+{#  </div>#}
+{#  <div id="question" class="container tab-pane fade">#}
+{#    <p>这是题库内容</p>#}
+{#    <p>你可以寻找你感兴趣的题目！</p>#}
+{#  </div>#}
+{#  <div id="share" class="container tab-pane fade">#}
+{#    <p>这是分享内容</p>#}
+{#    <p>你可以发布你想分享的内容！</p>#}
+{#  </div>#}
+{#</div>#}
+</div>
+</div>
+
+{% endblock %}
